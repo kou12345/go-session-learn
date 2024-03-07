@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="/login" method="post">
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required>
+        <button type="submit">Login</button>
+    </form>
+
+
+    <div id="cookie-info"></div>
+
+    <script>
+        // HttpOnlyが設定されている場合は取得できない
+        // クッキーの値を取得する関数
+        function getCookie(name) {
+            const value = "; " + document.cookie;
+            console.log(value);
+            const parts = value.split("; " + name + "=");
+            console.log(parts);
+            if (parts.length === 2) {
+                return parts.pop().split(";").shift();
+            }
+        }
+
+        // ページ読み込み時にクッキーの値を取得して表示
+        window.onload = function() {
+            const sessionID = getCookie("session_id");
+            if (sessionID) {
+                document.getElementById("cookie-info").textContent = "Session ID: " + sessionID;
+            } else {
+                document.getElementById("cookie-info").textContent = "No Session ID found";
+            }
+        };
+    </script>
+</body>
+</html>
